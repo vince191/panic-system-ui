@@ -2,6 +2,7 @@ import React from 'react';
 import logo from '../logo.svg';
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
+import { Button } from '@material-ui/core';
 
 const Header = () => {
     const history = useHistory();
@@ -26,7 +27,7 @@ const Header = () => {
                         <a className="nav-link" href="/">Dashboard</a>
                     </li>
                     <li className="nav-item active">
-                        <a className="nav-link" href="/" onClick={handleLogout}>Logout</a>
+                        <Button className="nav-link" onClick={handleLogout}>Logout</Button>
                     </li>
                 </ul>
             </div>
