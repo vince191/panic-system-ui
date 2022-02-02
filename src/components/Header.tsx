@@ -3,9 +3,7 @@ import logo from '../logo.svg';
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 
-type Props = {};
-
-const Header = (props: Props) => {
+const Header = () => {
     const history = useHistory();
     const handleLogout = async () => {
         try {

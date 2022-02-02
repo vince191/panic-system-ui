@@ -5,7 +5,7 @@ import { useInput } from "./../utils/forms";
 import { Auth } from "aws-amplify";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Card } from "@material-ui/core";
 
 const Field = styled(TextField)({
