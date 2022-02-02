@@ -1,28 +1,38 @@
 import './App.css';
-import Table from './components/Table';
-import Header from './components/Header';
-import usePanic from './hooks/usePanic';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Card from "@material-ui/core/Card";
+import Amplify from "aws-amplify";
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Signup from './components/Signup';
+import ConfirmAccount from './components/ConfirmAccount';
+
+Amplify.configure({
+  aws_cognito_region: process.env.REACT_APP_COGNITO_REGION,
+  aws_user_pools_id: process.env.REACT_APP_COGNITO_USER_POOL_ID,
+  aws_user_pools_web_client_id: process.env.REACT_APP_COGNITO_APP_CLIENT_ID,
+});
 
 function App() {
-  const { isLoading, data, isError } = usePanic();
-
   return (
-    <div className="App">
-      <Header />
-      <div className="page-content">
-        {isLoading && (
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        )}
-        {!isLoading && data && <Table items={data} />}
-        {isError && (
-          <div className="alert alert-danger" role="alert">
-            Error fetching panic requests
-          </div>
-        )}
-      </div>
-    </div>
+    <Router>
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/signup">
+            <Signup />
+          </Route> 
+          <Route path="/confirmation">
+            <ConfirmAccount />
+          </Route>
+          <Route path="/">
+            <ProtectedRoute component={Dashboard} />
+          </Route>
+        </Switch>
+    </Router>
+
   );
 }
 
