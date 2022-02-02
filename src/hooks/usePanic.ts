@@ -9,19 +9,14 @@ const instance = axios.create({
   }
 });
 
-const fetcher = (url: string) => instance.get(url).then(res => { console.log(res); return res.data }).catch(err => console.log(err));
+const fetcher = (url: string) => Auth.currentAuthenticatedUser().then(user => {
+  let accessToken = user.signInUserSession.accessToken.jwtToken;
+  instance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+  return instance.get(url).then(res => { console.log(res); return res.data }).catch(err => console.log(err));
+}).catch(err => console.log(err));
 
 function usePanic() {
-  const url = process.env.REACT_APP_PANIC_ENDPOINT ?? 'np-url-found';
-  let accessToken = '';
-
-  Auth.currentAuthenticatedUser().then(user => {
-    accessToken = user.signInUserSession.accessToken.jwtToken;
-    instance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-  }).catch(err => console.log(err));
-
-
-  const { data, error } = useSWR(url, () => fetcher('/api/panic'))
+  const { data, error } = useSWR('/api/panic', () => fetcher('/api/panic'))
 
   return {
     data,
