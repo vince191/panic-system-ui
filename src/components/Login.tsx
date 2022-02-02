@@ -12,11 +12,6 @@ const Field = styled(TextField)({
   margin: "10px 0",
 });
 
-const DLink = styled(Link)({
-  margin: "15px 0",
-  textAlign: "right",
-});
-
 const Login: React.FC = () => {
   const [loading, setLoading] = React.useState(false);
 
@@ -64,7 +59,6 @@ const Login: React.FC = () => {
           {loading && <CircularProgress size={20} style={{ marginRight: 20 }} />}
           Login to Your Account
         </Button>
-        {/* <DLink to="/signup">make a new account &rarr;</DLink> */}
       </form>
     </Card>
   );

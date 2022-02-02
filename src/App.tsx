@@ -1,6 +1,5 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Card from "@material-ui/core/Card";
 import Amplify from "aws-amplify";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";

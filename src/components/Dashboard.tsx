@@ -1,6 +1,4 @@
 import React from "react";
-
-
 import Table from '../components/Table';
 import Header from '../components/Header';
 import usePanic from '../hooks/usePanic';

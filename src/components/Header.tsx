@@ -1,7 +1,5 @@
 import React from 'react';
 import logo from '../logo.svg';
-import Button from "@material-ui/core/Button";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 
