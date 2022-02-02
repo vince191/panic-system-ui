@@ -2,11 +2,14 @@ import { Auth } from 'aws-amplify';
 import axios from 'axios';
 import useSWR from 'swr';
 
-const fetcher = (url: string, accessToken: string) => axios.get(url, {
+const instance = axios.create({
+  baseURL: process.env.REACT_APP_PANIC_ENDPOINT ?? 'np-url-found',
   headers: {
-    'Authorization': `Bearer ${accessToken}`
+    'Content-Type': 'application/json'
   }
-}).then(res => { console.log(res); return res.data }).catch(err => console.log(err));
+});
+
+const fetcher = (url: string) => instance.get(url).then(res => { console.log(res); return res.data }).catch(err => console.log(err));
 
 function usePanic() {
   const url = process.env.REACT_APP_PANIC_ENDPOINT ?? 'np-url-found';
@@ -14,11 +17,11 @@ function usePanic() {
 
   Auth.currentAuthenticatedUser().then(user => {
     accessToken = user.signInUserSession.accessToken.jwtToken;
-    console.log('access token found', accessToken);
+    instance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
   }).catch(err => console.log(err));
 
-  
-  const { data, error } = useSWR(url, () => fetcher(url, accessToken))
+
+  const { data, error } = useSWR(url, () => fetcher(url))
 
   return {
     data,
