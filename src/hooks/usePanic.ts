@@ -21,7 +21,7 @@ function usePanic() {
   }).catch(err => console.log(err));
 
 
-  const { data, error } = useSWR(url, () => fetcher(url))
+  const { data, error } = useSWR(url, () => fetcher('/api/panic'))
 
   return {
     data,
