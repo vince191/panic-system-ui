@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { put } from '../api/api';
 import TableItem from './TableItem';
 
@@ -13,6 +13,17 @@ async function markItemComplete(item: any) {
 }
 
 const Table = (props: Props) => {
+
+    const [items, setItems] = useState(props.items);
+    
+    function removeItem(element: any) { 
+        setItems(items.filter(x=> x.id !== element.id));
+    }
+
+    useEffect(() => {
+        setItems(props.items);
+    },[props.items])
+
     return <table className="table table-bordered">
         <thead>
             <tr>
@@ -26,10 +37,10 @@ const Table = (props: Props) => {
             </tr>
         </thead>
         <tbody>
-            {props.items.length > 0 && props.items.map(element => {
-                return (<TableItem item={element} onClick={() => markItemComplete(element)} />)
+            {items.length > 0 && items.map(element => {
+                return (<TableItem item={element} onClick={() => markItemComplete(element).then(() => removeItem(element))} />)
             })}
-            {props.items.length === 0 && (
+            {items.length === 0 && (
                 <tr>
                     <td colSpan={7}>No items to show.</td>
                 </tr>
