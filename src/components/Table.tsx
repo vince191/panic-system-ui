@@ -29,7 +29,7 @@ const Table = (props: Props) => {
             {props.items.length > 0 && props.items.map(element => {
                 return (<TableItem item={element} onClick={() => markItemComplete(element)} />)
             })}
-            {props.items.length == 0 && (
+            {props.items.length === 0 && (
                 <tr>
                     <td colSpan={7}>No items to show.</td>
                 </tr>
